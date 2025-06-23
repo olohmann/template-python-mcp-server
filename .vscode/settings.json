@@ -1,0 +1,24 @@
+{
+    // --- Python & Ruff --------------------------------
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.formatting.provider": "ruff",
+    "editor.formatOnSave": true,
+    "ruff.enable": true,
+    "ruff.lineLength": 120,
+    "ruff.lint.select": [
+        "E",
+        "F",
+        "B"
+    ],
+    "ruff.lint.ignore": [
+        "E501"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.ruff": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    // --- General hygiene ------------------------------
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true
+}
