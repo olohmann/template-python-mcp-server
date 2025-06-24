@@ -8,13 +8,24 @@ To get started with this template, clone the repository and replace all occurren
 
 ```bash
 # Shallow clone the repository
-git clone --depth 1
+git clone --depth 1 --single-branch https://github.com/olohmann/template-python-mcp-server.git my-mcp-server
+# Change into the project directory
+cd my-mcp-server
 # Remove the .git directory to start fresh
 rm -rf .git
 # Initialize a new git repository
 git init
-# Find all TODO-TEMPLATE occurrences in the repository
-grep -r "TODO-TEMPLATE" . --exclude=README.md
+
+# Find all TODO-TEMPLATE occurrences in the repository and replace them
+# First, see what will be changed
+grep -rn "TODO-TEMPLATE" . --exclude=README.md
+# Then replace automatically in all files
+grep -rl "YEAR-TODO-TEMPLATE" . --exclude=README.md | xargs sed -i '' 's/YEAR-TODO-TEMPLATE/2025/g'
+grep -rl "AUTHOR-TODO-TEMPLATE" . --exclude=README.md | xargs sed -i '' 's/YEAR-TODO-TEMPLATE/Name/g'
+grep -rl "TODO-TEMPLATE" . --exclude=README.md | xargs sed -i '' 's/TODO-TEMPLATE/my-mcp-server/g'
+
+# Finally, update the README.md
+vi README.md
 ```
 
 ## File Structure

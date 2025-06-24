@@ -23,6 +23,39 @@ if __name__ == "__main__":
 ```
 so the server starts only when the file is executed directly.
 
+### Best Practices for MCP Tool Function Annotations
+
+* Be accurate about side effects: Clearly indicate whether a tool modifies its environment and whether those modifications are destructive.
+* Use descriptive titles: Provide human-friendly titles that clearly describe the tool’s purpose.
+* Indicate idempotency properly: Mark tools as idempotent only if repeated calls with the same arguments truly have no additional effect.
+* Set appropriate open/closed world hints: Indicate whether a tool interacts with a closed system (like a database) or an open system (like the web).
+* Remember annotations are hints: All properties in ToolAnnotations are hints and not guaranteed to provide a faithful description of tool behavior. Clients should never make security-critical decisions based solely on annotations.
+
+### Good Descriptive Annotations Example
+
+```python
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("example-server")
+
+@mcp.tool(
+    annotations={
+        "title": "Calculate Sum",
+        "readOnlyHint": True,
+        "openWorldHint": False
+    }
+)
+async def calculate_sum(a: float, b: float) -> str:
+    """Add two numbers together.
+
+    Args:
+        a: First number to add
+        b: Second number to add
+    """
+    result = a + b
+    return str(result)
+```
+
 ## Project Layout
 - Adopt the **src-layout**: place code in `src/<package_name>/`.
 - Keep top-level directories minimal: `src/`, `tests/`, `docs/`, `.github/`.
@@ -43,11 +76,11 @@ so the server starts only when the file is executed directly.
 - Do **not** add tests unless the prompt explicitly asks for them.
 
 ## CI/CD
-- Provide a minimal **GitHub Actions** workflow:  
-  1. Set up `uv`,  
-  2. `uv sync`,  
-  3. `ruff format --check`, `ruff check`, `mypy`,  
-  4. run tests (if present).  
+- Provide a minimal **GitHub Actions** workflow:
+  1. Set up `uv`,
+  2. `uv sync`,
+  3. `ruff format --check`, `ruff check`, `mypy`,
+  4. run tests (if present).
 - For container builds, push images to **Azure Container Registry**.
 
 ## Style Conventions
