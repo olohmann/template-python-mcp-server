@@ -1,24 +1,80 @@
 {
     // --- Python & Ruff --------------------------------
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-    "python.formatting.provider": "ruff",
-    "editor.formatOnSave": true,
+    "python.terminal.activateEnvironment": true,
+    "python.linting.enabled": false,
+    "python.formatting.provider": "none",
+    
+    // --- Ruff configuration ---------------------------
     "ruff.enable": true,
-    "ruff.lineLength": 120,
-    "ruff.lint.select": [
-        "E",
-        "F",
-        "B"
-    ],
-    "ruff.lint.ignore": [
-        "E501"
-    ],
+    "ruff.lint.enable": true,
+    "ruff.format.enable": true,
+    "ruff.organizeImports": true,
+    "ruff.fixAll": true,
+    "ruff.codeAction.fixViolation": {
+        "enable": true
+    },
+    
+    // --- Pyright configuration ------------------------
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.inlayHints.parameterTypes": true,
+    "python.analysis.inlayHints.callArgumentNames": "partial",
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.include": ["src"],
+    "python.analysis.exclude": ["tests/fixtures", "**/__pycache__", ".venv", "build", "dist"],
+    
+    // --- Editor settings ------------------------------
+    "editor.formatOnSave": true,
+    "editor.formatOnType": false,
     "editor.codeActionsOnSave": {
         "source.fixAll.ruff": "explicit",
-        "source.organizeImports": "explicit"
+        "source.organizeImports.ruff": "explicit"
     },
-    // --- General hygiene ------------------------------
+    "editor.rulers": [120],
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.trimAutoWhitespace": true,
+    "editor.renderWhitespace": "boundary",
+    
+    // --- File configuration ---------------------------
+    "files.associations": {
+        "*.toml": "toml",
+        "pyproject.toml": "toml"
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        ".pytest_cache": true,
+        ".coverage": true,
+        ".mypy_cache": true,
+        ".ruff_cache": true,
+        "build": true,
+        "dist": true,
+        "*.egg-info": true
+    },
     "files.eol": "\n",
     "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    
+    // --- Testing configuration ------------------------
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        "tests",
+        "-v",
+        "--tb=short"
+    ],
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    
+    // --- Terminal configuration -----------------------
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+    }
 }
