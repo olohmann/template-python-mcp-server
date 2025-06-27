@@ -24,6 +24,7 @@ class McpSettings(BaseSettings):
         env_prefix="MCP_",
         case_sensitive=False,
         extra="ignore",
+        frozen=True,
     )
 
     host: Annotated[str, Field(default="0.0.0.0", description="MCP Host (only if transport != stdio)")]

@@ -29,7 +29,7 @@ structlog.configure(
 
 logger = structlog.get_logger(__name__)
 
-mcp = FastMCP("MCP on 🔥")
+mcp: FastMCP[None] = FastMCP("MCP on 🔥")
 
 
 @mcp.tool(annotations={"title": "Divide Numbers", "readOnlyHint": True, "openWorldHint": False})
@@ -61,7 +61,7 @@ def main() -> None:
     signal.signal(signal.SIGINT, lambda signum, frame: graceful_exit())
 
     try:
-        mcp_settings = McpSettings()
+        mcp_settings: McpSettings = McpSettings()  # type: ignore[call-arg]
         logger.info("Starting Alpaca MCP server")
 
         # Initialize and run the server
@@ -71,7 +71,6 @@ def main() -> None:
             mcp.run(transport="sse", host=mcp_settings.host, port=mcp_settings.port)
         else:
             mcp.run(transport="stdio")
-        mcp.run()
     except KeyboardInterrupt:
         graceful_exit()
     except Exception as e:
